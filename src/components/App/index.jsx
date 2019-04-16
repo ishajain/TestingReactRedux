@@ -2,7 +2,7 @@ import React from "react";
 import Headline from "../Headline";
 const App = () => {
   return (
-    <div data-test="appComponent">
+    <div data-test="AppComponent">
       <Headline
         header="First React Testing Project"
         desc="I am loving it!!!!"
