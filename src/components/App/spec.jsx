@@ -14,6 +14,7 @@ const setup = (initialState = {}) => {
   const component = shallow(<App store={store} />)
     .childAt(0)
     .dive();
+  //console.log(component.debug());
   return component;
 };
 

@@ -8,7 +8,7 @@ const setup = (props = {}) => {
 };
 
 describe("SharedButton Component", () => {
-  let component, node;
+  let component, mockFunc, button;
   describe("Checking PropTypes", () => {
     it("Should not throw a warning", () => {
       const expectedProps = {
@@ -23,16 +23,24 @@ describe("SharedButton Component", () => {
   });
 
   describe("Renders", () => {
+    mockFunc = jest.fn();
     beforeEach(() => {
       const props = {
         buttonText: "Sample Test",
-        clickEvent: () => {}
+        clickEvent: mockFunc
       };
       component = setup(props);
     });
     it("Should render with no error", () => {
-      node = findByTestAttr(component, "ButtonComponent");
-      expect(node.length).toBe(1);
+      button = findByTestAttr(component, "ButtonComponent");
+      expect(button.length).toBe(1);
+    });
+    it("Should emit the callback on click event", () => {
+      button = findByTestAttr(component, "ButtonComponent");
+      button.simulate("click");
+      //button.simulate("click");
+      const callback = mockFunc.mock.calls.length;
+      expect(callback).toBe(1);
     });
   });
 });
