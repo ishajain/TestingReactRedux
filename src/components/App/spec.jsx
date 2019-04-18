@@ -2,14 +2,23 @@ import React from "react";
 import { shallow } from "enzyme";
 import App from "./index";
 import Headline from "../Headline";
-import { findByTestAttr } from "../../../utils";
+import { findByTestAttr, testStore } from "../../../utils";
+import { middlewares } from "../../store";
+import reducer from "../../reducers";
+import configureMockStore from "redux-mock-store";
+const mockStore = configureMockStore(middlewares);
+
+const setup = (initialState = {}) => {
+  const store = testStore(initialState);
+  //const store = mockStore({ posts: [] });
+  const component = shallow(<App store={store} />)
+    .childAt(0)
+    .dive();
+  return component;
+};
 
 describe("App Component", () => {
   let component, wrapper;
-  const setup = (props = {}) => {
-    component = shallow(<App {...props} />);
-    return component;
-  };
 
   beforeEach(() => {
     component = setup();
